@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -9,7 +10,6 @@ public class MyList<T> implements List<T>, AuthorHolder {
     private int maxSize = 10;
     private Object[] list = new Object[maxSize];
     private int currentSize = 0;
-
     @Override
     public int size() {
         return currentSize;
@@ -64,11 +64,11 @@ public class MyList<T> implements List<T>, AuthorHolder {
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        Object[] arr = new Object[currentSize];
+        T1[] arr = (T1[]) Array.newInstance(a.getClass().getComponentType(), currentSize);
         for (int i = 0; i < currentSize; i++){
             arr[i] = (T1)list[i];
         }
-        return (T1[]) arr;
+        return arr;
     }
 
     @Override
